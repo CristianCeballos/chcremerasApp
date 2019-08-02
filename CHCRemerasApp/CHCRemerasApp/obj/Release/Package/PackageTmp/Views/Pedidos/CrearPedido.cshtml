@@ -1,0 +1,245 @@
+﻿@using CHCRemerasApp.Models;
+@using CHCRemerasApp.ViewsModel;
+
+
+@{
+    Layout = null;
+}
+
+@model PedidosViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>Nuevo Pedido</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+    <script src="~/Content/jquery-3.2.1.js" type="text/javascript"></script>
+    <script>
+
+function DetallePedidos(nro_pedido, id_remera, cantidad, subtotal) {
+
+    this.nro_pedido = nro_pedido;
+    this.id_remera = id_remera;
+    this.cantidad = cantidad;
+    this.subtotal = subtotal;
+}
+
+var detalles = [];
+
+function cargarRemeras() {
+
+        var nro_pedido = parseInt(document.getElementById("ultimo").value);
+        var id_remera = parseInt(document.getElementById("remera_id_remera").value);
+        var cantidad = parseInt(document.getElementById("detalle_cantidad").value);
+        //var descripcion = document.getElementById("remera_id_remera").options[document.getElementById("remera_id_remera").selectedIndex].text;
+    var precio = parseFloat(document.getElementById("remera_precio").value);
+
+        var preciototal = precio * cantidad;
+        if (document.getElementById("remera_id_remera").value == "") {
+        alert('Debe elegir una Remera');
+        return;
+        } else if (document.getElementById("remera_precio").value == "") {
+        alert('Ingrese Precio');
+        return;
+        } else if (document.getElementById("detalle_cantidad").value == "") {
+            alert('Ingrese Cantidad');
+            return;
+        }
+
+
+    var detalle = new DetallePedidos(nro_pedido, id_remera, cantidad, preciototal);
+
+        for (var i = 0; i < detalles.length; i++) {
+            if (detalles[i].id_remera == detalle.id_remera) {
+            alert('La remera ya fue agregada a la lista');
+            return;
+        }
+    }
+
+
+    detalles.push(detalle);
+    agregarRemera(detalles);
+
+
+
+}
+
+
+function agregarRemera(remera) {
+
+    var tabla = document.getElementById("lstRegistro");
+    var htmlTabla;
+
+        for (var i = 0; i < remera.length; i++) {
+            var htmlTabla = "<tr><td>" + remera[i].nro_pedido + "</td><td>" + remera[i].id_remera + "</td><td>" + remera[i].cantidad + "</td><td>" + remera[i].subtotal + "</td><td>" + "<a href='#' >Quitar</a></td></tr>";
+    }
+
+    tabla.innerHTML += htmlTabla;
+
+
+        document.getElementById("remera_id_remera").value = "";
+        document.getElementById("remera_precio").value = "";
+        document.getElementById("detalle_cantidad").value = "";
+
+
+}
+
+$(document).ready(function () {
+    $("#btnAgregar").click(function () {
+
+   
+        postData = JSON.stringify({ 'values': detalles });
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '/Pedidos/AgregarDetalles',
+            data: postData,
+            success: function () {
+                //$('#result').html('"PassThings()" successfully called.');
+
+                //document.forms[0].submit();
+                window.location = '@Url.Action("DetallePedidos/"+ Model.ultimo,"Pedidos")';// Mandar a Lista de Remeras como paso el id?
+                
+               
+
+            },
+            failure: function (response) {
+                //$('#result').html(response);document.forms[0].submit();
+            }
+
+     
+        });
+    });
+
+});
+    </script>
+
+
+</head>
+<body>
+
+    <div>
+
+        <h1  class="alert alert-success fondoPedido">Nuevo Pedido</h1>
+
+    </div>
+
+    <div>
+        <ul>
+
+            @*<li><a href="#">Cargar Pedidos</a> </li>
+                <li><a href="#">Mostrar Productos</a></li>
+                <li><a href="#">Cargar Productos</a></li>
+                <li><a href="#">Diseños</a></li>
+                <li><a href="#">Estadisticas</a></li>*@
+        </ul>
+
+    </div>
+
+
+   
+        <h2>Paso 2:</h2><br />
+
+<div  class="form-group">
+    <h4>Seleccione Remeras</h4><br />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <table class="table">
+
+            <tr>
+                <td>Codigo Pedido</td>
+                <td>@Html.TextBoxFor(model => model.ultimo, new { @readonly = true })</td>
+            </tr>
+
+
+            <tr>
+                <td>Codigo Remera</td>
+                <td>
+                    @Html.DropDownListFor(model => model.remera.id_remera,
+                new SelectList(Model.listaRemerasVer, "id_remera", "titulo_remera"), "Por favor seleccione una opción")
+            </td>
+        </tr>
+
+        <tr>
+            <td>Cantidad</td>
+            <td>
+                @Html.EditorFor(model => model.detalle.cantidad, new { htmlAttributes = new { @type = "number" } })
+            </td>
+        </tr>
+
+        <tr>
+            <td>Precio Unitario</td>
+            <td>
+                @Html.EditorFor(model => model.remera.precio, new { htmlAttributes = new { @type = "number" } })
+            </td>
+        </tr>
+
+
+
+    </table>
+
+                <div>
+                    <input type="button" value="Agregar Remera" id="btnRemeras" class="btn btn-success" onclick="cargarRemeras()" />
+                </div>
+
+
+
+                                            <h2>Lista de Compras</h2>
+                                            <table id="myDataTable" class="table table-striped" align="center">
+                                                <thead>
+                                                    <tr>
+                                                        <td>Codigo Pedido</td>
+                                                        <td>Codigo Remera</td>
+                                                        <td>Cantidad</td>
+                                                        <td>Precio</td>
+                                                        <td>Acciones</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="lstRegistro"></tbody>
+                                            </table>
+
+
+                                <hr />
+                                <br />
+                                <br />
+
+
+                                <h2>Finalizar Venta</h2>
+                                <div>
+                                    <div>
+                                        <input type="button" value="Confirmar Pedido" class="btn btn-warning" id="btnAgregar" />
+                                    </div>
+                                </div>
+                           
+
+    }
+
+
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+    </div>
+
+
+    <div>
+
+        <footer>CHCRemeras</footer>
+
+    </div>
+
+</body>
+</html>

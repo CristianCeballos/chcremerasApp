@@ -1,0 +1,107 @@
+﻿@using CHCRemerasApp.Models;
+@model  CHCRemerasApp.ViewsModel.ClientesViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>Mostrar Clientes</title>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div>
+        <ul class="nav nav-tabs">
+
+            <li role="presentation"><a href="/Home/Index">Inicio</a> </li>
+            <li role="presentation"><a href="/Pedidos/MostrarPedidos">Pedidos</a> </li>
+            <li role="presentation"><a href="/Remeras/MostrarRemeras">Remeras</a></li>
+            <li role="presentation" class="active"><a href="/Clientes/MostrarClientes">Clientes</a></li>
+
+            <li role="presentation"><a href="/Diseños/MostrarDiseños">Diseños</a></li>
+            <li role="presentation"> <a href="/Estadisticas/EstadisticasVer">Estadisticas</a></li>
+        </ul>
+
+    </div>
+
+    <div>
+
+ 
+        <h1  class="alert alert-info fondoClientes">Clientes</h1><br />
+
+        <div><a href="/Clientes/NuevoCliente" class="btn btn-warning">Nuevo Cliente</a></div><br /><br />
+
+    </div>
+    <div>
+        <ul>
+
+            @*<li><a href="#">Cargar Pedidos</a> </li>
+                <li><a href="#">Mostrar Productos</a></li>
+                <li><a href="#">Cargar Productos</a></li>
+                <li><a href="#">Diseños</a></li>
+                <li><a href="#">Estadisticas</a></li>*@
+        </ul>
+
+    </div>
+
+    <div>
+        @*<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por nombres">*@
+        <table class="table table-striped">
+
+            <tr>
+                <td>Codigo Cliente</td>
+                <td>Nombre</td>
+                <td><label>Nombre Usuario</label></td>
+                <td><label>Edad</label></td>
+                <td><label>Sexo</label></td>
+                <td><label>Ciudad</label></td>
+                <td><label>Mail</label></td>
+                <td><label>Telefono</label></td>
+                @*<td><label>Estado</label></td>*@
+
+                <td colspan="2"><label>Acciones</label></td>
+            </tr>
+            @foreach (ClientesVer c in @Model.listaClientes)
+            {
+                <tr>
+                    <td>@c.id_cliente</td>
+                    <td>@c.nombre</td>
+                    <td>@c.nombre_usuario</td>
+                    <td>@c.edad</td>
+                    <td>@c.sexo</td>
+                    <td>@c.ciudad</td>
+                    <td>@c.email</td>
+                    <td>@c.telefono</td>
+                    @*<td>@c.estado</td>*@
+
+                    <td><a href="/Clientes/EditarCliente/@c.id_cliente"><img src="~/Content/Diseños/edit.png" width="25px" /></a></td>
+
+                </tr>
+
+            }
+        </table>
+
+
+
+    </div>
+
+
+    <div>
+
+        <footer>CHCRemeras</footer>
+
+    </div>
+    <script src="~/Content/Script.js"></script>
+</body>
+</html>
+

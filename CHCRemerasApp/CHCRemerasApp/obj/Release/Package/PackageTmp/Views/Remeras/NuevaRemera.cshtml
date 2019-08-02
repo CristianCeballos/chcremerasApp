@@ -1,0 +1,109 @@
+﻿@using CHCRemerasApp.Models;
+@using CHCRemerasApp.ViewsModel;
+
+@{
+    Layout = null;
+}
+
+@model RemerasViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Nueva Remera</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+
+
+</head>
+<body>
+
+    @*<div>
+        <ul class="nav nav-tabs">
+
+            <li role="presentation"><a href="/Home/Index">Inicio</a> </li>
+            <li role="presentation"><a href="/Pedidos/MostrarPedidos">Pedidos</a> </li>
+            <li role="presentation"  class="active"><a href="/Remeras/MostrarRemeras">Remeras</a></li>
+            <li role="presentation"><a href="/Clientes/MostrarClientes">Clientes</a></li>
+
+            <li role="presentation"><a href="/Diseños/MostrarDiseños">Diseños</a></li>
+            <li role="presentation"> <a href="Estadisticas/EstadisticasVer">Estadisticas</a></li>
+        </ul>
+
+    </div>*@
+
+
+    <h1  class="alert alert-danger fondoRemeras">Nueva Remera</h1>
+
+    <div  class="form-group">
+        @Html.ValidationSummary()
+
+        <table class="table">
+
+
+            @using (Html.BeginForm())
+            {
+
+                <tr>
+                    <td>Titulo Remera</td>
+                    <td>@Html.TextBoxFor(r => r.remera.titulo_remera)</td>
+                </tr>
+
+                <tr>
+                    <td>Talle</td>
+                    <td>@Html.DropDownListFor(r => r.remera.id_talle, new SelectList(Model.listaTalles, "id_talle", "descripcion"))</td>
+                </tr>
+
+                <tr>
+                    <td>Color</td>
+                    <td>@Html.DropDownListFor(r => r.remera.id_color, new SelectList(Model.listaColores, "id_color", "descripcion"))</td>
+                </tr>
+
+                <tr>
+                    <td>Tipo</td>
+                    <td>@Html.DropDownListFor(r => r.remera.id_tipo, new SelectList(Model.listaTipo, "id_tipo", "descripcion"))</td>
+                </tr>
+
+                <tr>
+                    <td>Imagen</td>
+                    <td>@Html.TextBoxFor(r => r.remera.imagen)</td>
+                </tr>
+
+                <tr>
+                    <td>Precio</td>
+                    <td>@Html.TextBoxFor(r => r.remera.precio)</td>
+                </tr>
+
+
+                <tr>
+                    <td>Estado</td>
+                    <td>@Html.DropDownListFor(r => r.remera.id_estado, new SelectList(Model.listaEstados, "id_estado", "descripcion"))</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Agregar" class="btn btn-danger" /></td>
+                </tr>
+
+            }
+
+        </table>
+
+    </div>
+
+
+
+
+    <div class="btn btn-default">
+        @Html.ActionLink("Volver", "/MostrarRemeras")
+    </div>
+    <br /><br /><br />>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>Gastos Control 2.0</title>
+    <link href="estilos.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <header><h2>Bienvenido al CONTROL DE GASTOS 2.0</h2></header>
+
+    <nav>
+        
+        <ul>
+            <li style="left:10px"><a href="#">Menu principal</a></li>
+            <li style ="left:30px"><a href="listaGastos.html">Lista de Gastos</a></li>
+            <li><a href="#">Quienes somos</a></li>
+            <li><a href="#">Que lo que</a></li>
+           
+        </ul>
+    </nav>
+
+
+    <section>
+        <div class="principal">
+
+            <h3>Pantalla de carga de gastos</h3>
+
+            <form>
+
+                <div>
+                    <label for="desc">Descripcion</label>
+                    <input type="text" id="descripcion" name="desc" value="" />
+                </div>
+
+                <div>
+                    <label for="imp">Importe</label>
+                    <input type="text" name="imp" id="importe" value="" />
+                </div>
+                <div>
+                    <label>Seleccione categoria</label>
+                    <select id="categoria">
+                        <option value="0">Opcion 0</option>
+                        <option value="1">Opcion 1</option>
+                        <option value="2">Opcion 2</option>
+                        <option value="3">Opcion 3</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Seleccione persona</label>
+                    <select id="persona">
+                        <option value="0">Opcion 0</option>
+                        <option value="1">Opcion 1</option>
+                        <option value="2">Opcion 2</option>
+                        <option value="3">Opcion 3</option>
+                    </select>
+                </div>
+                <div>
+                    <input class="boton" type="button" name="btn_cargar" id="btn_cargar" value="Cargar" />
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>Gracias por venir</footer>
+
+
+</body>
+</html>

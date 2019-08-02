@@ -1,0 +1,75 @@
+﻿<!DOCTYPE hml>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>LOGIN</title>
+    <meta name="viewport" content="width=device-width , initial-scale=1.0">
+    <link href="~/Content/EstilosInicio.css" rel="stylesheet" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <script>
+
+      
+
+      
+        function boton() {
+
+            if (validar()) {
+
+            if (document.getElementById('mail').value == "Admin" && document.getElementById('contraseña').value == "Admin") {
+                location.href = "/Home/Index";
+            } else {
+                
+                swal("Usuario y/o Contraseña INCORRECTOS");
+                document.getElementById("formulario").reset();
+                document.getElementById("mail").focus();
+
+            }
+
+            }
+        }
+
+
+        function validar() {
+            var bandera = true;
+            if (document.getElementById('mail').value == "" || document.getElementById('contraseña').value == "") {
+                swal("Por favor ingrese los datos correctos");
+                bandera = false;
+            }
+            return bandera;
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="d1">
+
+    </div>
+
+    <div class="login">
+        <form action="/" method="post" id="formulario">
+            <h2>INGRESAR</h2>
+
+            <label for="">USUARIO</label>
+            <input type="text" id="mail" name="name" value="" class="txtb"/>
+
+            <label for="">CONTRASEÑA</label>
+            <input type="password" id="contraseña" name="name" value="" class="txtb"/>
+
+            <div class="check">
+                <input type="checkbox" name="name" value="" />
+
+                <span>RECUERDAME</span>
+            </div>
+            
+            <input type="button" name="name" value="INGRESAR" class="btn" onclick="boton()" />
+        </form>
+
+    </div>
+
+</body>
+</html>

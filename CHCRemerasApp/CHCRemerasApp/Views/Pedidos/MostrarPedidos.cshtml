@@ -1,0 +1,95 @@
+﻿@using CHCRemerasApp.Models;
+@model CHCRemerasApp.ViewsModel.PedidosViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>Mostrar Pedidos</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+    <link href="~/Content/EstilosTitulo.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <div>
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="/Home/Index">Menu Principal</a> </li>
+        </ul>
+    </div>
+
+
+    <div>
+
+
+
+        <h1 class='retroshadow'>Transacciones</h1>
+
+        <div><a href="/Pedidos/NuevoPedido" class="btn btn-warning">Nuevo Pedido</a></div><br /><br />
+
+    </div>
+
+    <div>
+        <ul>
+
+            @*<li><a href="#">Cargar Pedidos</a> </li>
+                <li><a href="#">Mostrar Productos</a></li>
+                <li><a href="#">Cargar Productos</a></li>
+                <li><a href="#">Diseños</a></li>
+                <li><a href="#">Estadisticas</a></li>*@
+        </ul>
+
+    </div>
+
+    <div>
+        <table class="table table-striped">
+
+            <tr>
+                <td><label>Nro Pedido</label></td>
+                <td><label>Fecha</label></td>
+                <td><label>Nombre Cliente</label></td>
+                <td><label>Vendedor</label></td>
+                <td><label>Precio Final</label></td>
+                @*<td><label>Descuento</label></td>*@
+                @*<td><label>Estado</label></td>*@
+
+                <td colspan="2"><label>Acciones</label></td>
+            </tr>
+            @foreach (PedidosVer p in @Model.pedidosVer)
+            {
+                <tr>
+                    <td>@p.cod_pedido</td>
+                    <td>@p.fecha.ToShortDateString()</td>
+                    <td>@p.nombre_cliente</td>
+                    <td>@p.vendedor</td>
+                    <td>@p.preFinal</td>
+                    @*<td>@p.descuento</td>*@
+                    @*<td>@p.descripcion_estado</td>*@
+
+                    <td><a>@Html.ActionLink("Ver detalles", "DetallePedidos", new { id = p.cod_pedido })</a></td>
+                    <td><a>@Html.ActionLink("Ver Procesos", "ProcesosPedidos", new { id = p.cod_pedido })</a></td>
+
+                </tr>
+
+            }
+        </table>
+
+    </div>
+
+
+    <div>
+
+        <footer>CHCRemeras</footer>
+
+    </div>
+
+</body>
+</html>
+

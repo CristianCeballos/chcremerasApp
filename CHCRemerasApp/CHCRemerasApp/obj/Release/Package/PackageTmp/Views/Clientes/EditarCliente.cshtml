@@ -1,0 +1,114 @@
+﻿@using CHCRemerasApp.Models;
+@using CHCRemerasApp.ViewsModel;
+
+@{
+    Layout = null;
+}
+
+@model ClientesViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Editar Cliente</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+
+
+</head>
+<body>
+
+    @*<div>
+        <ul class="nav nav-tabs">
+
+            <li role="presentation"><a href="/Home/Index">Inicio</a> </li>
+            <li role="presentation"><a href="/Pedidos/MostrarPedidos">Pedidos</a> </li>
+            <li role="presentation"><a href="/Remeras/MostrarRemeras">Remeras</a></li>
+            <li role="presentation" class="active"><a href="/Clientes/MostrarClientes">Clientes</a></li>
+
+            <li role="presentation"><a href="/Diseños/MostrarDiseños">Diseños</a></li>
+            <li role="presentation"> <a href="Estadisticas/EstadisticasVer">Estadisticas</a></li>
+        </ul>
+
+    </div>*@
+
+
+    <h1 class="alert alert-info fondoClientes">Editar Cliente</h1>
+
+    <div>
+        @Html.ValidationSummary()
+
+        <table class="table">
+
+            @using (Html.BeginForm())
+            {
+                <tr>
+                    <td>Id Cliente</td>
+                    <td>@Html.TextBoxFor(c => c.cliente.id_cliente, new { @readonly = true })</td>
+                </tr>
+                <tr>
+                    <td>Nombre</td>
+                    <td>@Html.TextBoxFor(c => c.cliente.nombre)</td>
+                </tr>
+
+                <tr>
+                    <td>Nombre Usuario</td>
+                    <td>@Html.TextBoxFor(c => c.cliente.nombre_usuario)</td>
+                </tr>
+
+                <tr>
+                    <td>Edad</td>
+                    <td>@Html.TextBoxFor(c => c.cliente.edad)</td>
+                </tr>
+
+                <tr>
+                    <td>Sexo</td>
+                    <td>@Html.DropDownListFor(c => c.cliente.sexo, new SelectList(Model.listaSexos, "id_sexo", "descripcion"))</td>
+                </tr>
+
+                <tr>
+                    <td>Ciudad</td>
+                    <td>@Html.DropDownListFor(c => c.cliente.id_ciudad, new SelectList(Model.listaCiudades, "id_ciudad", "nombre"))</td>
+                </tr>
+
+                <tr>
+                    <td>E- Mail</td>
+                    <td>@Html.TextBoxFor(c => c.cliente.email)</td>
+                </tr>
+
+
+                <tr>
+                    <td>Telefono</td>
+                    <td>@Html.TextBoxFor(c => c.cliente.telefono)</td>
+                </tr>
+
+
+                <tr>
+                    <td>Estado</td>
+                    <td>@Html.DropDownListFor(c => c.cliente.id_estado, new SelectList(Model.listaEstados, "id_estado", "descripcion"))</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input class="btn btn-info" type="submit" value="Actualizar" /></td>
+                </tr>
+
+            }
+
+        </table>
+
+    </div>
+
+
+
+
+    <div class="btn btn-default">
+        @Html.ActionLink("Volver", "/MostrarClientes")
+    </div>
+    <br /><br /><br />
+
+</body>
+</html>

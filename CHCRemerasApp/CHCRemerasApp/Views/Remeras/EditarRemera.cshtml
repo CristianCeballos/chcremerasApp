@@ -1,0 +1,171 @@
+﻿@using CHCRemerasApp.Models;
+@using CHCRemerasApp.ViewsModel;
+
+@{
+    Layout = null;
+}
+
+@model RemerasViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Nueva Remera</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="~/Content/EstilosTitulo.css" rel="stylesheet" />
+
+    <script language="JavaScript">
+
+        function pregunta() {
+
+            //alert("Andando");
+
+            var bandera = true;
+
+            if (document.getElementById("remera_titulo_remera").value == "") {
+                bandera = false;
+            }
+
+            if (document.getElementById("remera_imagen").value == "") {
+                bandera = false;
+            }
+
+            if (document.getElementById("remera_precio").value == "") {
+                bandera = false;
+            }
+
+            if (bandera == false) {
+                swal("Atención!", "Todos los campos son obligatorios", "error");
+            } else {
+
+                swal({
+                    title: "Guardar cambios?",
+                    text: "Esta seguro de guardar los cambios?",
+                    icon: "info",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            swal("Remera editada con exito!", {
+                                icon: "success",
+                            });
+                            setTimeout(function () { document.getElementById("formulario").submit() }, 1000);
+
+                        } else {
+                            swal("Los cambios no se guardaron");
+                        }
+                    });
+
+            }
+        }
+
+        function Cancelar() {
+
+            swal({
+                title: "Seguro desea Cancelar?",
+                text: "No se guardarán los cambios realizados",
+                icon: "error",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        location.href = "/Remeras/MostrarRemeras"
+                    } else {
+                        //swal("Your imaginary file is safe!");
+                    }
+                });
+        }
+
+        function deshabilitaRetroceso() {
+            window.location.hash = "no-back-button";
+            window.location.hash = "Again-No-back-button" //chrome
+            window.onhashchange = function () { window.location.hash = "no-back-button"; }
+        }
+
+    </script>
+
+
+</head>
+<body onload="deshabilitaRetroceso()">
+
+    <div>
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="/Remeras/MostrarRemeras">Volver</a> </li>
+        </ul>
+    </div>
+
+
+    <h1 class='retroshadow'>Editar Remera</h1>
+
+    <div>
+
+        <table class="table">
+
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formulario" }))
+            {
+                <tr>
+                    <td>Id Remera</td>
+                    <td>@Html.TextBoxFor(r => r.remera.id_remera, new { @readonly = true })</td>
+                </tr>
+                <tr>
+                    <td>Titulo Remera</td>
+                    <td>@Html.TextBoxFor(r => r.remera.titulo_remera)</td>
+                </tr>
+                <tr>
+                    <td>Talle</td>
+                    <td>@Html.DropDownListFor(r => r.remera.id_talle, new SelectList(Model.listaTalles, "id_talle", "descripcion"))</td>
+                </tr>
+
+                <tr>
+                    <td>Color</td>
+                    <td>@Html.DropDownListFor(r => r.remera.id_color, new SelectList(Model.listaColores, "id_color", "descripcion"))</td>
+                </tr>
+
+                <tr>
+                    <td>Tipo</td>
+                    <td>@Html.DropDownListFor(r => r.remera.id_tipo, new SelectList(Model.listaTipo, "id_tipo", "descripcion"))</td>
+                </tr>
+
+
+                <tr>
+                    <td>Imagen</td>
+                    <td><input id="remera_imagen" name="remera.imagen" type="file" value=""></td>
+                </tr>
+
+                <tr>
+                    <td>Precio</td>
+                    <td>@Html.TextBoxFor(r => r.remera.precio)</td>
+                </tr>
+
+
+                <tr>
+                    <td>Estado</td>
+                    <td>@Html.DropDownListFor(r => r.remera.id_estado, new SelectList(Model.listaEstados, "id_estado", "descripcion"))</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input value="Agregar" class="btn btn-info" onclick="pregunta()" /></td>
+                </tr>
+
+            }
+
+        </table>
+
+    </div>
+
+
+
+    <input value="Cancelar" class="btn btn-danger" onclick="Cancelar()" />
+    <br /><br /><br />
+
+
+</body>
+</html>

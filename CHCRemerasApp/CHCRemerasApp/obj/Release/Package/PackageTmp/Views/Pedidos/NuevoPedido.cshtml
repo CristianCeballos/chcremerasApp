@@ -1,0 +1,136 @@
+﻿@using CHCRemerasApp.Models;
+@using CHCRemerasApp.ViewsModel;
+
+
+@{
+    Layout = null;
+}
+
+@model PedidosViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>Nuevo Pedido</title>
+
+    
+    <script src="~/Content/jquery-3.2.1.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    @*<div>
+        <ul class="nav nav-tabs">
+
+            <li role="presentation" ><a href="/Home/Index">Inicio</a> </li>
+            <li role="presentation" class="active"><a href="/Pedidos/MostrarPedidos">Pedidos</a> </li>
+            <li role="presentation"><a href="/Remeras/MostrarRemeras">Remeras</a></li>
+            <li role="presentation"><a href="/Clientes/MostrarClientes">Clientes</a></li>
+
+            <li role="presentation"><a href="/Diseños/MostrarDiseños">Diseños</a></li>
+            <li role="presentation"> <a href="Estadisticas/EstadisticasVer">Estadisticas</a></li>
+        </ul>
+
+    </div>*@
+
+    <div>
+
+
+      
+        <h1  class="alert alert-success fondoPedido">Nuevo Pedido</h1>
+
+    </div>
+
+    <div>
+        <ul>
+           
+            @*<li><a href="#">Cargar Pedidos</a> </li>
+                <li><a href="#">Mostrar Productos</a></li>
+                <li><a href="#">Cargar Productos</a></li>
+                <li><a href="#">Diseños</a></li>
+                <li><a href="#">Estadisticas</a></li>*@
+        </ul>
+
+    </div>
+
+    <h2>Paso 1: </h2>
+
+    <div  class="form-group">
+        
+            @Html.ValidationSummary()
+
+        <table class="table">
+
+            @*fecha, id_cliente, vendedor,id_estado, descuento*@
+
+            @using (Html.BeginForm())
+            {
+
+                <tr>
+                    <td>Fecha</td>
+                    <td>@DateTime.Today.ToShortDateString()</td>
+                </tr>
+
+                    <tr>
+                        <td>Clientes</td>
+                        <td>@Html.DropDownListFor(p => p.pedido.id_cliente,
+                new SelectList(Model.listaClientes, "id_cliente", "nombre"), "Por favor seleccione una opción")</td>
+                        
+                    </tr>
+
+                    <tr>
+                        <td>Vendedores</td>
+                        <td>
+                            @Html.DropDownListFor(p => p.pedido.id_vendedor,
+                new SelectList(Model.listaVendedores, "id_vendedor", "nombre"), "Por favor seleccione una opción")
+                    </td>
+
+                </tr>
+
+                  @*<tr>
+                        <td>Estado</td>
+                        <td>@Html.DropDownListFor(p => p.pedido.id_estado,
+                new SelectList(Model.ListaEstados, "id_estado", "descripcion"), "Por favor seleccione una opción")</td>
+                    </tr>*@
+
+                    <tr>
+                        <td>Descuento</td>
+                        <td>@Html.TextBoxFor(p => p.pedido.descuento)</td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Agregar" class="btn btn-success" /></td>
+                    </tr>
+            }
+
+        </table>
+
+
+
+    </div>
+
+
+  
+
+    <div class="btn btn-default">
+        @Html.ActionLink("Cancelar", "/MostrarPedidos")
+    </div>
+    <br /><br /><br />
+
+
+    <div>
+
+        <footer>CHCRemeras</footer>
+
+    </div>
+
+</body>
+</html>

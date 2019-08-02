@@ -1,0 +1,177 @@
+﻿body {
+
+    padding-top: 50px;
+    padding-bottom: 20px;
+    margin: 10px;
+    margin-left: 5%;
+    text-align: center;
+    width: 90%;
+}
+
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+table {
+    text-align:center;
+}
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f1f1f1;
+    padding: 20px;
+    font-family: Arial;
+}
+
+/* Center website */
+.main {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 50px;
+    word-break: break-all;
+   
+}
+
+h3 {
+
+}
+
+span {
+    font-size: x-large;
+    background-color: white;
+    padding: 7px;
+    color: #FBB03C;
+}
+.monto {
+    color: #FBB03C;
+    background-color:white;
+}
+
+.fondoClientes {
+    background-color: white;
+    border-color: white;
+    color: black;
+    border-radius: 10px;
+}
+.fondoRemeras {
+    background-color: white;
+    border-color: white;
+    color: black;
+    border-radius: 10px;
+}
+.fondoPedido {
+    background-color: white;
+    border-color: white;
+    color: black;
+    border-radius: 10px;
+}
+.fondoDiseños {
+    background-color: white;
+    border-color: white;
+    color: black;
+    border-radius: 10px;
+}
+.fondoEstadisticas {
+    background-color: white;
+    border-color: white;
+    color: black;
+    border-radius: 10px;
+}
+
+.row {
+    margin: 8px -16px;
+}
+
+    /* Add padding BETWEEN each column (if you want) */
+    .row,
+    .row > .column {
+        padding: 8px;
+    }
+
+/* Create three equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 33.33%;
+    display: none; /* Hide columns by default */
+}
+
+/* Clear floats after rows */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Content */
+.content {
+    background-color: white;
+    padding: 10px;
+}
+
+/* The "show" class is added to the filtered elements */
+.show {
+    display: block;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    
+}
+
+li {
+    float: left;
+    cursor:pointer;
+}
+
+    li a {
+        display: block;
+        color: gray;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+        /* Change the link color to #111 (black) on hover */
+        li a:hover {
+            background-color: red;
+        }
+
+#colores-banner {
+    background-color: #111;
+}
+
+
+
+
+
+
+

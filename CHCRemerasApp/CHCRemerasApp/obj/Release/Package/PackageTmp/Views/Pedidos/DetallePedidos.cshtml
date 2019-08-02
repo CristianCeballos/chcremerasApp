@@ -1,0 +1,124 @@
+﻿@using CHCRemerasApp.Models;
+@model CHCRemerasApp.ViewsModel.PedidosViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Pagina Principal</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+
+
+</head>
+<body>
+
+    <div>
+
+
+
+        <h1 class="alert alert-success fondoPedido">Pedido Exitoso!</h1>
+
+    </div><br />
+    <div>
+        <table  class="table">
+            <tr>
+                <td  width="50%">Nro de Pedido: </td>
+                <td>@Model.pedidoVer.cod_pedido</td>
+            </tr>
+            <tr>
+                <td>Nombre de cliente:</td>
+                <td>@Model.pedidoVer.nombre_cliente</td>
+            </tr>
+            <tr>
+                <td>Nombre de vendedor: </td>
+                <td>@Model.pedidoVer.vendedor</td>
+            </tr>
+
+        </table>
+
+    </div><br /><br />
+
+   
+
+    <div>
+        <ul>
+           
+            @*<li><a href="/Pedidos/MostrarPedidos">Pedidos</a> </li>
+                <li><a href="#">Mostrar Productos</a></li>
+                <li><a href="#">Cargar Productos</a></li>
+                <li><a href="#">Diseños</a></li>
+                <li><a href="#">Estadisticas</a></li>*@
+        </ul>
+
+    </div>
+
+
+        <table class="table table-striped">
+
+            <tr>
+                @*<td><label>Numero de Detalle</label></td>
+                <td><label>Numero de Pedido</label></td>*@
+                <td><label>Codigo remera</label></td>
+                <td><label>Imagen</label></td>
+                <td><label>Nombre de Remera</label></td>
+                <td><label>Cantidad</label></td>
+                <td><label>Sub Total</label></td>
+
+               
+            </tr>
+            @foreach (DetallesVer d in @Model.listaDetallesVer)
+            {
+                <tr>
+                    @*<td>@d.id_detalle</td>
+                    <td>@d.id_pedido</td>*@
+                    <td>@d.id_remera</td>
+                    <td><a href="~/Content/Diseños/@d.imagen" target="_blank" onClick="window.open(this.href, this.target, 'width=300,height=400'); return false;"><img src="~/Content/Diseños/@d.imagen" width="40px" /></a></td>
+                    <td>@d.descripcion_remera</td>
+                    <td>@d.cantidad</td>
+                    <td>$ @d.monto_parcial</td>
+
+
+                </tr>
+
+            }
+        </table><br /><br />
+
+
+        <div>
+            <table  class="table">
+                <tr>
+                    <td width="50%">Descuento</td>
+                    <td>@Model.pedidoVer.descuento</td>
+                </tr>
+                <tr>
+                    <td class="precioFinal">Precio final:</td>
+                    <td class="precioFinal">@Model.pedidoVer.preFinal</td>
+                </tr>
+                @*<tr>
+                    <td>Estado:</td>
+                    <td>@Model.pedidoVer.descripcion_estado</td>
+                </tr>*@
+
+            </table>
+
+    </div>
+    <div class="btn btn-default">
+        @Html.ActionLink("Volver", "/MostrarPedidos")
+    </div>
+    <br /><br /><br/>
+
+    <div>
+
+        <footer>CHCRemeras</footer>
+
+    </div>
+
+</body>
+</html>

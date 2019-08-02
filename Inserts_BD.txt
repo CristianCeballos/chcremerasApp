@@ -1,0 +1,147 @@
+insert into Ciudades(ciudad) values ('Cordoba')
+insert into Ciudades(ciudad) values ('Capilla del Monte')
+insert into Ciudades(ciudad) values ('Comodoro Rivadavia')
+insert into Ciudades(ciudad) values ('La Falda')
+insert into Ciudades(ciudad) values ('Esquel')
+insert into Ciudades(ciudad) values ('San Ignacio')
+
+select * from Ciudades
+
+insert into Estados values(1,'Activo')
+insert into Estados values(2,'Eliminado')
+insert into Estados values(3,'Actualizado')
+insert into Estados values(4,'Modificado')
+insert into Estados values(5,'Pendiente')
+insert into Estados values(6,'Error 404')
+
+select * from Estados
+
+insert into Colores values(1,'Amarillo',1)
+insert into Colores values(2,'Azul Marino',1)
+insert into Colores values(3,'Gris Melange',1)
+insert into Colores values(4,'Verde Brasil',1)
+insert into Colores values(5,'Negro',1)
+insert into Colores values(6,'Blanco',1)
+
+select * from Colores
+
+insert into Tipo values(1,'Hombre',1)
+insert into Tipo values(2,'Mujer',1)
+insert into Tipo values(3,'Niños',1)
+
+select * from tipo
+
+insert into Talles values(1,'S',1)
+insert into Talles values(2,'M',1)
+insert into Talles values(3,'L',1)
+insert into Talles values(4,'XL',1)
+
+select * from talles
+
+insert into Items(codigo,descripcion,observaciones,id_estado)
+values('ALPED','Alta Pedido', 'Se da de alta el pedido sin novedades',1)
+
+insert into Items(codigo,descripcion,observaciones,id_estado)
+values('BAJPED','Baja Pedido','obs',2)
+
+insert into Items(codigo,descripcion,observaciones,id_estado)
+values('INCOR','Ingresa a area de Corte', 'obs',1)
+
+insert into Items(codigo,descripcion,observaciones,id_estado)
+values('INPIN','Ingresa a area de Pintura', 'obs',1)
+
+
+select * from Items
+
+insert into Clientes values(1,'Cristian','marx_',31,1,2,'marx_chc@hotmail.com','0351155065275',1)
+insert into Clientes values(2,'Fernando','El_Fer',31,1,2,'fernandopaez@gmail.com','035150659887',1)
+insert into Clientes values(3,'Diego','emperador_diegol',31,1,2,'dieguito@hotmail.com','95658452222',1)
+insert into Clientes values(4,'Marcos','marquitos',31,1,2,'paravosmarquitos@yahoo.com','0351155065275',1)
+insert into Clientes values(5,'Carlos Agustin','lasmisiones1',31,1,2,'carlitos@hotmail.com','023654877979',1)
+
+select * from Clientes
+
+
+
+insert into Remeras(titulo_remera,id_talle,id_color,id_tipo,imagen, precio, id_estado)
+values ('Universo', 2,3,1,'URL/Imagen', 350, 1)
+
+insert into Remeras(titulo_remera,id_talle,id_color,id_tipo,imagen, precio, id_estado)
+values ('Alegria', 1,2,1,'URL/Imagen', 350, 1)
+
+
+insert into Remeras(titulo_remera,id_talle,id_color,id_tipo,imagen, precio, id_estado)
+values ('Magia', 1,1,1,'URL/Imagen', 350, 1)
+
+
+insert into Remeras(titulo_remera,id_talle,id_color,id_tipo,imagen, precio, id_estado)
+values ('Unicornio', 2,2,2,'URL/Imagen', 350, 1)
+
+select * from Remeras
+
+
+insert into Detalles values(1,1,4)
+insert into Detalles values(2,2,3)
+insert into Detalles values(3,1,1)
+insert into Detalles values(4,1,4)
+insert into Detalles values(5,2,4)
+insert into Detalles values(6,1,3)
+insert into Detalles values(7,1,4)
+
+select * from detalles
+
+insert into Pedidos(fecha, id_cliente, vendedor,id_estado)
+values(GETDATE(), 3, 'Lorena', 1)
+
+insert into Pedidos(fecha, id_cliente, vendedor,id_estado)
+values(GETDATE(), 4, 'Cristian', 1)
+
+insert into Pedidos(fecha, id_cliente, vendedor,id_estado)
+values(GETDATE(), 2, 'Marcos', 1)
+
+insert into Pedidos(fecha, id_cliente, vendedor,id_estado)
+values(GETDATE(), 4, 'Lorena', 1)
+
+select * from pedidos
+
+insert into DetallesPedidos values(1,1)
+insert into DetallesPedidos values(1,2)
+insert into DetallesPedidos values(1,3)
+insert into DetallesPedidos values(2,1)
+insert into DetallesPedidos values(2,2)
+insert into DetallesPedidos values(2,3)
+insert into DetallesPedidos values(3,1)
+insert into DetallesPedidos values(3,2)
+insert into DetallesPedidos values(3,3)
+
+select * from detallespedidos
+
+insert into Procesos(nro_pedido) values(1)
+insert into Procesos(nro_pedido) values(2)
+insert into Procesos(nro_pedido) values(3)
+
+insert into ItemsProcesos values(1,1,GETDATE())
+insert into ItemsProcesos values(1,2,GETDATE())
+insert into ItemsProcesos values(1,3,GETDATE())
+
+select * from ItemsProcesos
+
+
+
+
+
+
+
+
+select v.nombre, count(p.nro_pedido)'cant_ventas', sum(dp.precio)
+from Vendedores v, Pedidos p,DetallesPedidos dp
+where v.id_vendedor=p.id_vendedor and p.nro_pedido=dp.nro_pedido
+group by v.nombre
+order by 'cant_ventas' desc
+
+
+select count(dp.cantidad)*100/(select count(dp.cantidad) from DetallesPedidos dp)
+from Pedidos p, Remeras r, Tipo t, DetallesPedidos dp
+where dp.nro_pedido=p.nro_pedido and dp.id_remera=r.id_remera and r.id_tipo=t.id_tipo and t.id_tipo=1
+
+select * from Tipo

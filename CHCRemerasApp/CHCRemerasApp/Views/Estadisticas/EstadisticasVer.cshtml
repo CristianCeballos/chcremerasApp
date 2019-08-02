@@ -1,0 +1,221 @@
+﻿@using CHCRemerasApp.Models;
+@model CHCRemerasApp.ViewsModel.EstadisticasViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Estadisticas</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+    <link href="~/Content/EstilosTitulo.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            // Define the chart to be drawn.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Element');
+            data.addColumn('number', 'Percentage');
+            data.addRows([
+                ['Hombre', 0.78],
+                ['Mujer', 0.16],
+                ['Niño', 0.01],
+                ['Mixto', 0.06]
+            ]);
+
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
+            chart.draw(data, null);
+        }
+    </script>
+
+
+</head>
+<body>
+
+
+    <div>
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="/Home/Index">Menu Principal</a> </li>
+        </ul>
+    </div>
+
+
+    <div>
+
+
+
+        <h1 class='retroshadow'>Estadisticas</h1>
+
+    </div><br />
+
+    <span>Remeras Vendidas por Tipo</span>
+    <div id="myPieChart"></div>
+
+
+
+    <div class="contenedor">
+        <div class="principal">
+
+
+
+        </div>
+        <div class="costado">
+            <div>
+
+                <span>Total Vendido: </span>
+                <span class="monto"> $@Model.total_vendido</span>
+                @*<table class="table" align="center">
+                    <tr>
+                        <th><h4>Total Vendido</h4> <h4> $@Model.total_vendido</h4></th>
+                        <th></th>
+                    </tr>*@
+                @*<tr>
+                        <td>Nombre de cliente:</td>
+                        <td>@Model.pedidoVer.nombre_cliente</td>
+                    </tr>
+                    <tr>
+                        <td>Nombre de vendedor: </td>
+                        <td>@Model.pedidoVer.vendedor</td>
+                    </tr>*@
+
+                </table>
+
+            </div><br /><br />
+
+
+
+            <div>
+                <ul>
+
+                    @*<li><a href="/Pedidos/MostrarPedidos">Pedidos</a> </li>
+                        <li><a href="#">Mostrar Productos</a></li>
+                        <li><a href="#">Cargar Productos</a></li>
+                        <li><a href="#">Diseños</a></li>
+                        <li><a href="#">Estadisticas</a></li>*@
+                </ul>
+
+            </div>
+
+
+            <span>Ciudades donde mas se vende</span><br /><br />
+            <table class="table table-striped topFive">
+
+                <tr>
+                    <td><label>Ciudad</label></td>
+                    <td><label>Cantidad de Ventas</label></td>
+
+
+                </tr>
+                @foreach (Estadisticas e in @Model.estadisticas)
+                {
+                    <tr>
+                        <td>@e.ciudad</td>
+                        <td>@e.cantidad_ciudades</td>
+
+                    </tr>
+
+                }
+            </table><br /><br /><br />
+
+            <span>Clientes que mas gastan</span><br /><br />
+            <table class="table table-striped topFive">
+
+                <tr>
+                    <td><label>Cliente</label></td>
+                    <td><label>Cantidad Compras</label></td>
+                    <td><label>Total ($)</label></td>
+
+
+                </tr>
+                @foreach (Estadisticas e in @Model.por_cliente)
+                {
+                    <tr>
+                        <td>@e.cliente</td>
+                        <td>@e.cant_por_cliente</td>
+                        <td>@e.precio_por_cliente</td>
+
+                    </tr>
+
+                }
+            </table><br /><br /><br />
+
+        </div>
+
+    </div>
+
+
+
+
+    @*<table class="table table-striped">
+
+            <tr>
+                <td><label>Numero de Detalle</label></td>
+                <td><label>Numero de Pedido</label></td>
+                <td><label>Codigo remera</label></td>
+                <td><label>Imagen</label></td>
+                <td><label>Nombre de Remera</label></td>
+                <td><label>Cantidad</label></td>
+                <td><label>Sub Total</label></td>
+
+
+            </tr>
+            @foreach (DetallesVer d in @Model.listaDetallesVer)
+                {
+                <tr>
+                    <td>@d.id_detalle</td>
+                    <td>@d.id_pedido</td>
+                    <td>@d.id_remera</td>
+                    <td><a href="~/Content/Diseños/@d.imagen" target="_blank" onClick="window.open(this.href, this.target, 'width=300,height=400'); return false;"><img src="~/Content/Diseños/@d.imagen" width="40px" /></a></td>
+                    <td>@d.descripcion_remera</td>
+                    <td>@d.cantidad</td>
+                    <td>$ @d.monto_parcial</td>
+
+
+                </tr>
+
+            }
+        </table><br /><br />*@
+
+
+    <div>
+        @*<table class="table">
+                <tr>
+                    <td width="50%">Descuento</td>
+                    <td>@Model.pedidoVer.descuento</td>
+                </tr>
+                <tr>
+                    <td>Precio final:</td>
+                    <td>@Model.pedidoVer.preFinal</td>
+                </tr>
+                <tr>
+                    <td>Estado:</td>
+                    <td>@Model.pedidoVer.descripcion_estado</td>
+                </tr>
+
+            </table>*@
+
+    </div>
+
+    @*<div>
+            @Html.ActionLink("Volver", "/Home/Index")
+        </div>*@
+
+    <div>
+
+        <footer>CHCRemeras</footer>
+
+    </div>
+
+</body>
+</html>

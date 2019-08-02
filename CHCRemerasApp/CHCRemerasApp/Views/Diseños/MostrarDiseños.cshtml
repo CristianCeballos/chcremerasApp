@@ -1,0 +1,118 @@
+﻿@using CHCRemerasApp.Models;
+@model CHCRemerasApp.ViewsModel.DiseñosViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>Mostrar Diseños</title>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Content/Script.js"></script>
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+    <link href="~/Content/EstilosTitulo.css" rel="stylesheet" />
+
+</head>
+<body>
+
+
+    <div>
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="/Home/Index">Menu Principal</a> </li>
+        </ul>
+    </div>
+
+    <div>
+
+
+        <h1 class='retroshadow'>Diseños</h1>
+
+        <div><a href="#" class="btn btn-warning">Nuevo Diseño</a></div><br /><br />
+
+    </div>
+
+
+    @*<div>*@
+
+        @*<div>
+                <table class="table table-striped">
+
+                    <tr>
+                        <td><label>Codigo Diseño</label></td>
+                        <td><label>Descripcion</label></td>
+                        <td><label>Url Diseño</label></td>
+                        <td><label>Categoria</label></td>
+                        <td><label>Imagen</label></td>
+                        <td><label>Acciones</label></td>
+                    </tr>
+                    @foreach (Diseños d in @Model.listaDiseños  )
+                    {
+                        <tr>
+                            <td>@d.id_diseño</td>
+                            <td>@d.descripcion</td>
+                            <td>@d.url_imagen</td>
+                            <td>@d.categoria</td>
+                            <td><a href="~/Content/Diseños/@d.url_imagen" target="_blank" onClick="window.open(this.href, this.target, 'width=300,height=400'); return false;"><img src="~/Content/Diseños/@d.url_imagen" width="50px" /></a></td>
+                            <td><a href="/Diseño/EditarDiseño/@d.id_diseño"><img src="~/Content/Diseños/edit.png" width="25px" /></a></td>
+
+                        </tr>
+
+                    }
+                </table>
+
+            </div>*@
+
+        <h2>PORTFOLIO</h2>
+        @*<input type="radio" onclick="filterSelection('all')" name="category" checked> Show all
+            <input type="radio" onclick="filterSelection('nature')" name="category"> Nature
+            <input type="radio" onclick="filterSelection('cars')" name="category"> Cars*@
+
+
+
+
+
+
+        <div class="row">
+
+            @foreach (Diseños d in @Model.listaDiseños)
+            {
+
+
+
+                @*<div class="column nature">
+                        <div class="content">
+                            <img src="~/Content/Diseños/@d.url_imagen" alt="@d.categoria" style="width:100%">
+                            <h4>@d.descripcion</h4>
+                            <p>@d.categoria</p>
+                        </div>
+                    </div>*@
+
+                <div class="gallery">
+                    <a target="_blank" href="~/Content/Diseños/@d.url_imagen">
+                        <img src="~/Content/Diseños/@d.url_imagen" alt="@d.descripcion" width="500" height="250">
+                    </a>
+                    <div class="desc">@d.descripcion</div>
+                </div>
+
+
+
+            }
+        </div>
+
+
+
+        <div>
+
+            <footer>CHCRemeras</footer>
+
+        </div>
+
+</body>
+</html>
+

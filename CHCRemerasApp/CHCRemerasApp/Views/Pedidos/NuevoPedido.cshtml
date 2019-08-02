@@ -1,0 +1,381 @@
+﻿@using CHCRemerasApp.Models;
+@using CHCRemerasApp.ViewsModel;
+
+
+@{
+    Layout = null;
+}
+
+@model PedidosViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>Nuevo Pedido</title>
+
+
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="~/Content/EstilosTitulo.css" rel="stylesheet" />
+    <script src="~/Content/jquery-3.2.1.js" type="text/javascript"></script>
+
+
+    <script>
+
+        var Remeras = [];
+        var detalles = [];
+
+        //var nro_cliente;
+        //var id_vendedor;
+
+        var ped;
+        var pedidoDetalles;
+
+        var id;
+        var contador = 0;
+
+
+
+
+        function Reme(id_remera, imagen) {
+            this.id_remera = id_remera;
+            this.imagen = imagen;
+        }
+
+
+
+        //function Pedido(id_cliente, id_vendedor) {
+        //    this.id_cliente = id_cliente;
+        //    this.id_vendedor = id_vendedor;
+        //}
+
+
+
+        //function pedidoDetalles(pedido, detalles) {
+        //    this.pedido = pedido;
+        //    this.detalles = detalles;
+        //}
+
+        //pedido_id_cliente, pedido_id_vendedor
+
+        function DetallePedidos(id_remera, cantidad, subtotal,id_vendedor, id_cliente) {
+            this.id_remera = id_remera;
+            this.cantidad = cantidad;
+            this.subtotal = subtotal;
+            this.id_vendedor = id_vendedor;
+            this.id_cliente = id_cliente;
+        }
+
+
+
+        function cargarRemeras() {
+
+        var id_remera = parseInt(document.getElementById("remera_id_remera").value);
+        var cantidad = parseInt(document.getElementById("detalle_cantidad").value);
+        var precio = parseFloat(document.getElementById("remera_precio").value);
+        var id_cliente = parseInt(document.getElementById("pedido_id_cliente").value);
+        var id_vendedor = parseInt(document.getElementById("pedido_id_vendedor").value);
+
+        var preciototal = precio * cantidad;
+        if (document.getElementById("remera_id_remera").value == "") {
+            swal("Debe elegir una remera!");
+        return;
+        } else if (document.getElementById("remera_precio").value == "") {
+            swal("Ingrese precio!");
+        return;
+        } else if (document.getElementById("detalle_cantidad").value == "") {
+            swal("Ingrese cantidad!");
+            return;
+            }
+         else if (document.getElementById("pedido_id_cliente").value == "") {
+            swal("Ingrese cliente!");
+            return;
+            }
+        else if (document.getElementById("pedido_id_vendedor").value == "") {
+            swal("Ingrese vendedor!");
+            return;
+        }
+
+
+            var detalle = new DetallePedidos(id_remera, cantidad, preciototal, id_cliente, id_cliente);
+
+        for (var i = 0; i < detalles.length; i++) {
+            if (detalles[i].id_remera == detalle.id_remera) {
+            alert('La remera ya fue agregada a la lista');
+            return;
+            }
+            }
+
+
+
+
+            detalles.push(detalle);
+            agregarRemera(detalles);
+
+            //ped = new Pedido(nro_cliente, id_vendedor);
+            //pedidoDetalles = new pedidoDetalles(ped, detalles);
+
+
+        }
+
+
+
+        function agregarRemera(remera) {
+
+        var tabla = document.getElementById("lstRegistro");
+        var htmlTabla;
+
+
+        for (var i = 0; i < remera.length; i++) {
+            contador++;
+            var htmlTabla = "<tr><td>" + contador + "</td><td>" + remera[i].id_remera + "</td><td>" + remera[i].cantidad + "</td><td>" + remera[i].subtotal + "</td><td><input type='button' id='" + remera[i].id_remera + "' value='Quitar' id='btnRemeras' class='btn btn-danger' onclick='quitarRemera(" + remera[i].id_remera + ")'></td>";
+         }
+
+        tabla.innerHTML += htmlTabla;
+
+        document.getElementById("remera_id_remera").value = "";
+        document.getElementById("remera_precio").value = "";
+        document.getElementById("detalle_cantidad").value = "";
+
+        contador = 0;
+
+        }
+
+
+
+        function Eliminar(id) {
+            //document.getElementById('lstRegistro').deleteRow(id);
+        }
+
+
+
+        function quitar(detal, id) {
+
+            var element;
+            for (var i = 0; i < detal.length; i++) {
+                if (detal[i].id_remera == id) {
+                    element = detal[i];
+                }
+            }
+            var index = detalles.indexOf(element);
+            detal.splice(index, 1);
+            document.getElementById('lstRegistro').deleteRow(index);
+        }
+
+
+
+        function quitarRemera(id) {
+            quitar(detalles);
+            //Eliminar(id);
+        }
+
+
+
+        function Cancelar() {
+
+            swal({
+                title: "Seguro desea Cancelar?",
+                text: "No se guardarán los cambios realizados",
+                icon: "error",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        location.href = "/Pedidos/MostrarPedidos"
+                    } else {
+                        //swal("Your imaginary file is safe!");
+                    }
+                });
+        }
+
+
+
+        function deshabilitaRetroceso() {
+            window.location.hash = "no-back-button";
+            window.location.hash = "Again-No-back-button" //chrome
+            window.onhashchange = function () { window.location.hash = "no-back-button"; }
+        }
+
+
+        //function FinalizarVenta() {
+        //    alert("104");
+        //    nro_cliente = documen.getElementById("pedido_id_cliente").value;
+        //    id_vendedor = document.getElementById("pedido_id_vendedor").value;
+
+        //    ped = new Pedido(nro_cliente, id_vendedor);
+        //    pedDetal = new pedidoDetalles(ped, detalles)
+
+        //}
+
+
+
+$(document).ready(function () {
+    $("#btnAgregar").click(function () {
+
+        if (confirm("Confirmar pedido?")) {
+
+
+        postData = JSON.stringify({ 'values': detalles });
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '/Pedidos/AgregarDetalles',
+            data: postData,
+            success: function () {
+                //$('#result').html('"PassThings()" successfully called.');
+
+                //document.forms[0].submit();
+                window.location = '@Url.Action("MostrarPedidos/","Pedidos")';// Mandar a Lista de Remeras como paso el id?
+
+
+
+            },
+            failure: function (response) {
+                //$('#result').html(response);document.forms[0].submit();
+            }
+
+
+        });
+    }
+
+    });
+
+});
+
+
+    </script>
+
+</head>
+
+<body onload="deshabilitaRetroceso()">
+
+    <div>
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="/Pedidos/MostrarPedidos">Volver</a> </li>
+        </ul>
+    </div>
+
+    <div>
+        <h1 class='retroshadow'>Nuevo Pedido</h1>
+    </div>
+
+    @*fecha, id_cliente, vendedor,id_estado, descuento*@
+
+    @using (Html.BeginForm())
+    {
+
+        <div class="form-group">
+
+            <table class="table table-hover table-dark">
+                <tr>
+                    <td>Fecha</td>
+                    <td>@DateTime.Today.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <td>Clientes</td>
+                    <td>
+                        @Html.DropDownListFor(p => p.pedido.id_cliente,
+        new SelectList(Model.listaClientes, "id_cliente", "nombre"), "Por favor seleccione una opción")
+                    </td>
+                </tr>
+                <tr>
+                    <td>Vendedores</td>
+                    <td>
+                        @Html.DropDownListFor(p => p.pedido.id_vendedor,
+            new SelectList(Model.listaVendedores, "id_vendedor", "nombre"), "Por favor seleccione una opción")
+                    </td>
+                </tr>
+
+                <tr>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+
+                <tr>
+                    <td>Codigo Remera</td>
+                    <td>
+                        @Html.DropDownListFor(model => model.remera.id_remera,
+                    new SelectList(Model.listaRemerasVer, "id_remera", "titulo_remera"), "Por favor seleccione una opción")
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Cantidad</td>
+                    <td>
+                        @Html.EditorFor(model => model.detalle.cantidad, new { htmlAttributes = new { @type = "number" } })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Precio Unitario</td>
+                    <td>
+                        @Html.EditorFor(model => model.remera.precio, new { htmlAttributes = new { @type = "number" } })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td> </td>
+                    <td>
+                        <input type="button" value="Agregar Remera" id="btnRemeras" class="btn btn-success" onclick="cargarRemeras()" />
+                    </td>
+                </tr>
+            </table>
+
+            <h2>Lista de Compras</h2>
+            <table id="lstRegistro" class="table table-striped" align="center">
+                <thead>
+                    <tr>
+                        <td>Numero</td>
+                        <td>Codigo Remera</td>
+                        <td>Cantidad</td>
+                        <td>Subtotal</td>
+                        <td>Acciones</td>
+                    </tr>
+                </thead>
+            </table>
+
+
+            <hr />
+            <br />
+            <br />
+
+            <h2>Finalizar Venta</h2>
+
+            <hr />
+            <br />
+            <br />
+
+            <div>
+                <div>
+                    <input type="button" value="Confirmar Pedido" class="btn btn-warning" id="btnAgregar" />
+                </div>
+            </div>
+        </div>
+
+    }
+
+
+
+
+    <br /><br /><br /><br /><br /><br />
+    <input value="Cancelar" class="btn btn-danger" onclick="Cancelar()" />
+    <br /><br /><br />
+
+
+
+    <div>
+
+        <footer>CHCRemeras</footer>
+
+    </div>
+
+</body>
+</html>

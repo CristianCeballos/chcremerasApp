@@ -1,0 +1,115 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #fff;
+    color: black;
+}
+
+.services {
+    background: #fff;
+    text-align: center;
+    margin-top: 60px;
+}
+
+    /*.services h1 {
+        display: inline-block;
+        text-transform: uppercase;
+        border-bottom: 4px solid black;
+        font-size: 20px;
+        padding-bottom: 10px;
+        margin-top: 40px;
+    }*/
+
+.cen{
+    max-width: 1200px;
+    margin: auto;
+    overflow:hidden;
+    padding: 20px;
+}
+
+.service {
+    display: inline-block;
+    padding: 25px;
+    width: calc(100%/3);
+    margin: 0 -2px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: 0.4s;
+    border-radius: 10px;
+}
+
+    .service:hover {
+        background: #F8F5F4;
+        /*color: orange;*/
+    }
+
+
+
+    .service i {
+       
+        font-size: 50px;
+        margin-bottom: 30px;
+    }
+
+.ventas {
+    color: #F39C12;
+}
+.clientes {
+    color: #52BE80;
+}
+.remeras {
+    color: #7DCEA0;
+}
+.est {
+    color: #AED6F1;
+}
+.dise {
+    color: #48C9B0;
+}
+.ayuda {
+    color: #F1C40F;
+}
+
+.service h2{
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 800px){
+    .service{
+        width: 50%;
+    }
+
+}
+
+@media screen and (max-width: 500px) {
+    .service {
+        width: 100%;
+    }
+}
+
+a{
+    text-decoration:none;
+    animation:none;
+    color: black;
+}
+
+/*.btnMenu{
+    margin-left:0px;
+    padding:0px;
+    float: left;
+    display: inline-block;
+    background-image:url();
+    text-align: left;
+}*/
+
+.salir {
+    text-align: center;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width: 200px;
+}

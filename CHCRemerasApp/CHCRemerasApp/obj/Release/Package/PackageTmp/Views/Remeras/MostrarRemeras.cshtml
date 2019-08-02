@@ -1,0 +1,105 @@
+﻿@using CHCRemerasApp.Models;
+@model CHCRemerasApp.ViewsModel.RemerasViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>Mostrar Remeras</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div>
+        <ul class="nav nav-tabs">
+
+            <li role="presentation"><a href="/Home/Index">Inicio</a> </li>
+            <li role="presentation"><a href="/Pedidos/MostrarPedidos">Pedidos</a> </li>
+            <li role="presentation" class="active"><a href="/Remeras/MostrarRemeras">Remeras</a></li>
+            <li role="presentation"><a href="/Clientes/MostrarClientes">Clientes</a></li>
+
+            <li role="presentation"><a href="/Diseños/MostrarDiseños">Diseños</a></li>
+            <li role="presentation"> <a href="/Estadisticas/EstadisticasVer">Estadisticas</a></li>
+        </ul>
+
+    </div>
+
+
+    <div>
+
+
+      
+        <h1  class="alert alert-danger fondoRemeras">Remeras</h1><br />
+        <div><a href="/Remeras/NuevaRemera" class="btn btn-warning">Nueva Remera</a></div><br /><br />
+
+    </div>
+
+    <div>
+        <ul>
+           
+            @*<li><a href="#">Cargar Pedidos</a> </li>
+                <li><a href="#">Mostrar Productos</a></li>
+                <li><a href="#">Cargar Productos</a></li>
+                <li><a href="#">Diseños</a></li>
+                <li><a href="#">Estadisticas</a></li>*@
+        </ul>
+
+    </div>
+
+    <div>
+        <table  class="table table-striped">
+
+            <tr>
+                <td><label>Categoria Remera</label></td>
+                <td><label>Codigo Remera</label></td>
+                
+                <td><label>Talle</label></td>
+                <td><label>Color</label></td>
+                <td><label>Tipo</label></td>
+                <td><label>Imagen</label></td>
+                <td><label>Precio</label></td>
+                @*<td><label>Estado</label></td>*@
+
+                <td colspan="2"><label>Acciones</label></td>
+            </tr>
+            @foreach (RemerasVer r in @Model.listaRemerasVer)
+            {
+                <tr>
+                    <td>@r.titulo_remera</td>
+                    <td>@r.id_remera</td>
+                    
+                    <td>@r.id_talle</td>
+                    <td>@r.id_color</td>
+                    <td>@r.id_tipo</td>
+                    <td><a href="~/Content/Diseños/@r.imagen" target="_blank" onClick="window.open(this.href, this.target, 'width=300,height=400'); return false;"><img src="~/Content/Diseños/@r.imagen" width="40px" /></a></td>
+                    
+                        <td>@r.precio</td>
+                        @*<td>@r.id_estado</td>*@
+
+                        <td><a href="/Remeras/EditarRemera/@r.id_remera"><img src="~/Content/Diseños/edit.png" width="25px" /></a></td>
+
+</tr>
+
+            }
+        </table>
+
+    </div>
+
+
+    <div>
+
+        <footer>CHCRemeras</footer>
+
+    </div>
+
+</body>
+</html>
+

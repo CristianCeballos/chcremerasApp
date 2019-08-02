@@ -1,0 +1,155 @@
+
+create database CHCRemerasDB
+
+use CHCRemerasDB
+
+
+create table Estados
+(
+	id_estado int not null,
+	descripcion nvarchar(20) not null,
+
+	constraint pk_estado primary key(id_estado)
+
+)
+
+create table Colores
+(
+	id_color int not null,
+	descripcion nvarchar(20) not null,
+	id_estado int not null,
+
+	constraint pk_color primary key(id_color),
+	constraint fk_estado foreign key (id_estado) references Estados(id_estado),
+)
+
+drop table Colores
+
+create table Talles
+(
+	id_talle int not null,
+	descripcion nvarchar(20) not null,
+	id_estado int not null,
+
+	constraint pk_talle primary key(id_talle),
+	constraint fk_estadoTalle foreign key (id_estado) references Estados(id_estado),
+)
+drop table Talles
+
+create table Tipo
+(
+	id_tipo int not null,
+	descripcion nvarchar(20) not null,
+	id_estado int not null,
+
+	constraint pk_tipo primary key(id_tipo),
+	constraint fk_estadoTipo foreign key (id_estado) references Estados(id_estado),
+)
+
+drop table Tipo
+
+create table Remeras
+(
+	id_remera int identity not null,
+	titulo_remera nvarchar(20),
+	id_talle int not null,
+	id_color int not null,
+	id_tipo int not null,
+	imagen nvarchar(50),
+	precio numeric(10,2),
+	id_estado int not null,
+
+	constraint pk_remera primary key(id_remera),
+	constraint fk_talle foreign key (id_talle) references Talles(id_talle),
+	constraint fk_color foreign key (id_color) references Colores(id_color),
+	constraint fk_tipo foreign key (id_tipo) references Tipo(id_tipo),
+	constraint fk_estadoRemera foreign key (id_estado) references Estados(id_estado),
+
+)
+
+
+
+create table Ciudades
+(
+	id_ciudad int identity not null,
+	ciudad nvarchar(20) not null,
+	observaciones nvarchar(30),
+
+	constraint pk_cuidad primary key (id_ciudad)
+)
+
+
+create table Clientes
+(
+	id_cliente int not null,
+	nombre nvarchar(30) not null,
+	nombre_usuario nvarchar(30),
+	edad int not null,
+	sexo int not null,
+	id_ciudad int,
+	mail nvarchar(30),
+	telefono nvarchar(30),
+	id_estado int not null,
+
+	constraint pk_cliente primary key (id_cliente),
+	constraint fk_ciudad foreign key (id_ciudad) references Ciudades(id_ciudad),
+	constraint fk_estadoCliente foreign key (id_estado) references Estados(id_estado),
+)
+
+
+create table Pedidos
+(
+	nro_pedido int identity not null,
+	fecha smalldatetime not null,
+	id_cliente int not null,
+	vendedor nvarchar(30),
+	precio_final numeric(10,2) not null,
+	descuento int not null,
+	id_estado int not null,
+
+	constraint pk_pedido primary key(nro_pedido),
+	constraint fk_cliente foreign key(id_cliente) references Clientes(id_cliente),
+	constraint fk_estadoPedido foreign key (id_estado) references Estados(id_estado),
+)
+
+create table DetallesPedidos
+(
+	nro_pedido int not null,
+	id_remera int not null,
+	cantidad int,
+	constraint fk_pedido foreign key(nro_pedido) references Pedidos(nro_pedido),
+	constraint fk_remera foreign key(id_remera) references Remeras(id_remera),
+
+)
+
+create table Items
+(
+	id_item int identity not null,
+	codigo nvarchar(6) not null,
+	descripcion nvarchar(30) not null,
+	fecha smalldatetime not null,
+	observaciones nvarchar(50),
+	id_estado int not null,
+
+	constraint pk_item primary key(id_item),
+	constraint fk_estadoItem foreign key (id_estado) references Estados(id_estado),
+
+)
+
+create table Procesos
+(
+	id_proceso int identity not null,
+	nro_pedido int not null,
+
+	constraint pk_proceso primary key(id_proceso),
+	constraint fk_pedidoProceso foreign key (nro_pedido) references Pedidos(nro_pedido),
+)
+
+create table ItemsProcesos
+(
+	id_proceso int not null,
+	id_item int not null,
+	constraint fk_ItemProceso foreign key (id_proceso) references Procesos(id_proceso),
+	constraint fk_ItemItemProcesos foreign key (id_item) references Items(id_item),
+
+)

@@ -1,0 +1,210 @@
+﻿@using CHCRemerasApp.Models;
+@model CHCRemerasApp.ViewsModel.PedidosViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Procesos Pedidos</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet" />
+    <link href="~/Content/EstilosTitulo.css" rel="stylesheet" />
+
+    <script>
+
+        function LimpiarCampo() {
+            document.getElementById("proceso_observaciones") = "";
+        }
+
+        function validacion() {
+            var bandera = true;
+            if (document.getElementById("proceso_observaciones").value == "") {
+                bandera = false;
+            }
+
+            if (bandera == false) {
+                swal("Atención!", "Todos los campos son obligatorios", "error");
+            } else {
+
+                swal({
+                    title: "Guardar cambios?",
+                    text: "Esta seguro de guardar los cambios?",
+                    icon: "info",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            swal("Proceso agregado con exito!", {
+                                icon: "success",
+                            });
+                            setTimeout(function () { document.getElementById("formulario").submit() }, 1000);
+                            //document.getElementById("proceso_observaciones").value = "";
+
+                        } else {
+                            swal("Los cambios no se guardaron");
+                        }
+                    });
+
+            }
+        }
+
+    </script>
+</head>
+<body onInit="LimpiarCampo()">
+
+
+
+
+    <div>
+
+        <div>
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a href="/Pedidos/MostrarPedidos">Volver</a> </li>
+            </ul>
+        </div>
+
+        <div>
+
+
+            <h1 class='retroshadow'>Procesos</h1>
+
+        </div><br />
+
+        <table class="table">
+
+
+
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formulario" }))
+            {
+
+
+                <tr>
+                    <td width="50%">Nro de Pedido: </td>
+                    <td>@Html.TextBoxFor(p => p.pedidoVer.cod_pedido, new { @readonly = true })</td>
+
+                </tr>
+                <tr>
+                    <td>Nombre de cliente:</td>
+                    <td>@Model.pedidoVer.nombre_cliente</td>
+                </tr>
+
+                @*@Model.proceso.nro_pedido= @Model.pedidoVer.cod_pedido;*@
+
+                <tr>
+                    <td>Seleccione Accion</td>
+
+                    <td>
+                        @Html.DropDownListFor(p => p.proceso.id_item,
+                    new SelectList(Model.listaItemsLista, "id_item", "descripcion"))
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>Observaciones</td>
+                    <td>
+                        @Html.TextBoxFor(p => p.proceso.observaciones)
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td></td>
+
+                    <td><input value="Agregar" class="btn btn-info" onclick="validacion()" /></td>
+                </tr>
+
+
+
+
+            }
+
+        </table>
+
+
+
+
+
+        <div>
+            <ul>
+
+                @*<li><a href="/Pedidos/MostrarPedidos">Pedidos</a> </li>
+                <li><a href="#">Mostrar Productos</a></li>
+                <li><a href="#">Cargar Productos</a></li>
+                <li><a href="#">Diseños</a></li>
+                <li><a href="#">Estadisticas</a></li>*@
+            </ul>
+
+        </div>
+
+
+        <table class="table table-striped">
+
+            <tr>
+                <td><label>ID Proceso</label></td>
+                <td><label>Codigo</label></td>
+                <td><label>Descripcion</label></td>
+                <td><label>Fecha</label></td>
+                @*<td><label>Estado</label></td>*@
+                <td><label>Observaciones</label></td>
+
+
+
+            </tr>
+            @foreach (Item i in @Model.listaItems)
+            {
+                <tr>
+                    <td>@i.id_item</td>
+                    <td>@i.codigo</td>
+                    <td>@i.descripcion</td>
+                    <td>@i.fecha.ToShortDateString()</td>
+                    @*<td>@i.id_estado</td>*@
+                    <td>@i.observaciones</td>
+
+                </tr>
+
+            }
+        </table>
+        <br />
+        <br />
+
+
+        <div>
+            <table class="table">
+
+                <tr>
+                    <td>Estado:</td>
+                    <td>@Model.pedidoVer.descripcion_estado</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <div class="btn btn-default">
+            @Html.ActionLink("Volver", "/MostrarPedidos")
+        </div>
+        <br /><br /><br />
+
+        <div>
+
+            <footer>CHCRemeras</footer>
+
+        </div>
+
+</body>
+</html>
+
+
+
+

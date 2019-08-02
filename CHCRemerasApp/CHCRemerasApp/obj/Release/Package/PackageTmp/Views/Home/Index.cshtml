@@ -1,0 +1,148 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Pagina Principal</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/estilosGaleria.css" rel="stylesheet" />
+
+
+
+
+
+</head>
+<body>
+
+    <div>
+        <ul class="nav nav-tabs">
+
+            <li role="presentation" class="active"><a href="/Home/Index">Inicio</a> </li>
+            <li role="presentation"><a href="/Pedidos/MostrarPedidos">Pedidos</a> </li>
+            <li role="presentation"><a href="/Remeras/MostrarRemeras">Remeras</a></li>
+            <li role="presentation"><a href="/Clientes/MostrarClientes">Clientes</a></li>
+
+            <li role="presentation"><a href="/Diseños/MostrarDiseños">Diseños</a></li>
+            <li role="presentation"> <a href="/Estadisticas/EstadisticasVer">Estadisticas</a></li>
+        </ul>
+
+    </div>
+
+    <body>
+
+
+
+            <div class="w3-container">
+                <h2>Pagina Principal</h2>
+                <p>Tu remera favorita</p>
+            </div>
+
+            <div class="w3-content w3-display-container">
+
+                <div class="w3-display-container mySlides">
+                    <img src="~/Content/Diseños/daft-punk-banner.jpg" style="width:70%">
+                    <div class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-orange" id="colores-banner">
+                        El diseño que vos quieras
+                    </div>
+                </div>
+
+                <div class="w3-display-container mySlides">
+                    <img src="~/Content/Diseños/pinturas.png" style="width:70%">
+                    <div class="w3-display-bottomright w3-large w3-container w3-padding-16 w3-orange colores-banner">
+                        A cualquier parte del pais
+                    </div>
+                </div>
+
+                <div class="w3-display-container mySlides">
+                    <img src="~/Content/Diseños/colores.png"style="width:70%">
+                    <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-orange colores-banner">
+                        Tu Remera Favorita
+                    </div>
+                </div>
+
+                <div class="w3-display-container mySlides">
+                    <img src="~/Content/Diseños/mario-bros-banner.jpg"style="width:70%">
+                    <div class="w3-display-topright w3-large w3-container w3-padding-16 w3-orange colores-banner">
+                        Excelente Calidad
+                    </div>
+                </div>
+
+                <div class="w3-display-container mySlides">
+                    <img src="~/Content/Diseños/envios.jpg" style="width:70%">
+                    <div class="w3-display-middle w3-large w3-container w3-padding-16 w3-orange colores-banner">
+                        Increible!
+                    </div>
+                </div>
+
+                <button class="w3-button w3-display-left w3-black" onclick="plusDivs(-1)">&#10094;</button>
+                <button class="w3-button w3-display-right w3-black" onclick="plusDivs(1)">&#10095;</button>
+
+            </div>
+
+            <script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  x[slideIndex-1].style.display = "block";
+}
+            </script>
+
+        <script>
+            var slideIndex = 0;
+            carousel();
+
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                slideIndex++;
+                if (slideIndex > x.length) { slideIndex = 1 }
+                x[slideIndex - 1].style.display = "block";
+                setTimeout(carousel, 5000);
+            }
+        </script>
+
+        </body>
+
+
+
+
+    <div>
+
+        <h4  class="alert alert-primary"><b>CHC</b>Remeras</h4>
+  
+
+    </div>
+    @*<img src="~/Content/12605431_939537449471085_339715637337978021_o.jpg" width="40%" />*@
+    <div>
+
+    </div>
+
+
+
+
+    <div>
+
+        <footer>CHCRemeras</footer>
+
+    </div>
+
+</body>
+</html>

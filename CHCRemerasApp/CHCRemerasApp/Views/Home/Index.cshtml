@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pagina Principal</title>
+    <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet" />
+    <link href="~/Content/EstilosMenu.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        function Cancelar() {
+
+            swal({
+                title: "Cerrar Sesión?",
+                text: "Hasta la proxima!",
+                icon: "error",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        location.href = "/Home/Login"
+                    } else {
+                        //swal("Your imaginary file is safe!");
+                    }
+                });
+        }
+    </script>
+
+</head>
+<body>
+
+    @*<div>
+            <ul class="nav nav-tabs">
+
+                <li role="presentation" class="active"><a href="/Home/Index">Inicio</a> </li>
+                <li role="presentation"><a href="/Pedidos/MostrarPedidos">Pedidos</a> </li>
+                <li role="presentation"><a href="/Remeras/MostrarRemeras">Remeras</a></li>
+                <li role="presentation"><a href="/Clientes/MostrarClientes">Clientes</a></li>
+
+                <li role="presentation"><a href="/Diseños/MostrarDiseños">Diseños</a></li>
+                <li role="presentation"> <a href="/Estadisticas/EstadisticasVer">Estadisticas</a></li>
+            </ul>
+
+        </div>*@
+
+
+
+    <div class="services">
+
+        @*<h1>CHCRemeras</h1>*@
+
+        <div class="cen">
+            <a href="/Pedidos/MostrarPedidos">
+                <div class="service">
+                    <i class="fas fa-hand-holding-usd ventas"></i>
+                    <h2>Transacciones</h2>
+                    <p>Gestiones relacionadas con las Ventas y los Procesos</p>
+                </div>
+            </a>
+            <a href="/Clientes/MostrarClientes">
+                <div class="service">
+                    <i class="fas fa-address-card clientes"></i>
+                    <h2>Clientes</h2>
+                    <p>Crear Clientes, Consultar Clientes, Modificar Clientes</p>
+                </div>
+            </a>
+            <a href="/Remeras/MostrarRemeras">
+                <div class="service">
+                    <i class="fas fa-tshirt remeras"></i>
+                    <h2>Remeras</h2>
+                    <p>Crear Remeras, Consultar Remeras, Modificar Remeras</p>
+                </div>
+            </a>
+            <a href="/Diseños/MostrarDiseños">
+                <div class="service">
+                    <i class="fas fa-image dise"></i>
+                    <h2>Diseños</h2>
+                    <p>Crear Diseños, Consultar Diseños, Modificar Diseños</p>
+                </div>
+            </a>
+            <a href="/Estadisticas/EstadisticasVer">
+                <div class="service">
+                    <i class="fas fa-chart-pie est"></i>
+                    <h2>Estadisticas</h2>
+                    <p>Consultar informacion de Reportes y Estadisticas</p>
+                </div>
+            </a>
+                <a href="~/Content/Diseños/CHCRemerasManual.pdf" download="CHCRemerasManual">
+                <div class="service">
+                    <i class="fas fa-question-circle ayuda"></i>
+                    <h2>Ayuda</h2>
+                    <p>Descargue el manual de instrucciones e informacion necesaria</p>
+                </div>
+            </a>
+
+
+        </div>
+    </div>
+    <br /><br /><br />
+    <div class="salir">
+        <input value="Salir" class="btn btn-danger" onclick="Cancelar()" />
+    </div>
+    <br /><br /><br />
+
+</body>
+
+</html>
